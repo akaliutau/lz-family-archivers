@@ -66,11 +66,11 @@ The Table 1 summarizes the averages for the optimum on each archiver, optimisati
 score = opt(compressed_size, run_time, mem_consumption)
 ```
 
-The score is bigger is compressed_size is _smaller_ (this is included to final score with the biggest weight)
+The score is bigger if compressed_size is _smaller_ (this is included to final score with the biggest weight)
 
-The score is bigger is run_time is _smaller_ (if run_time > 10x for `gzip`, the score for this part quickly falls to 0)
+The score is bigger if run_time is _smaller_ (if run_time > 10x for `gzip`, the score for this part quickly falls to 0)
 
-The score is bigger is mem_consumption is _smaller_
+The score is bigger if mem_consumption is _smaller_
 
 (Note the big deviation for zstd, which means this archiver has to be tested with different set of flags, since increasing
 the complexity of compression algorithm dramatically increases the compression time and affects the score):
