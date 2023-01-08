@@ -85,7 +85,7 @@ the complexity of compression algorithm dramatically increases the compression t
 | 220 (1M)                    | xz        | -6          | 2:41.48   | 84484                        | 32.6                |
 | 220 (1M)                    | gzip      | -6          | 0:08.37   | 2164                         | 42.4                |
 
-# Strategy to choose the optimal archive
+# Strategy to choose the optimal archiver
 
 If there are memory constraints, then the archivers have to be considered in the following order:
 
