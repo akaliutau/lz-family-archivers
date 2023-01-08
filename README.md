@@ -30,7 +30,7 @@ which comprises 200+ different archivers. Unfortunately, the best ones are highl
 (I need stable, production-ready OSS with small development and maintenance overhead).
 
 After some considerations and experiments I have shortlisted the following ones: `zstd`, `brotli`, `xz` and `gzip` 
-(the latter one for reference only).
+(the latter one for reference only since it's a long-term standard in lossless compression).
 
 zstd installation
 
@@ -60,7 +60,22 @@ consumption, like this:
 /usr/bin/time -v brotli -q 10 -w 10 test.txt
 ```
 
-The following table summarizes the averages:
+The Table 1 summarizes the averages for the optimum on each archiver, optimisation function is:
+
+```shell
+score = opt(compressed_size, run_time, mem_consumption)
+```
+
+The score is bigger is compressed_size is _smaller_ (this is included to final score with the biggest weight)
+
+The score is bigger is run_time is _smaller_ (if run_time > 10x for `gzip`, the score for this part quickly falls to 0)
+
+The score is bigger is mem_consumption is _smaller_
+
+(Note the big deviation for zstd, which means this archiver has to be tested with different set of flags, since increasing
+the complexity of compression algorithm dramatically increases the compression time and affects the score):
+
+### Table 1
 
 | input file size, MB (lines) | algorithm | flags       | run time  | peak mem consumption, kbytes | compressed size, MB |
 |-----------------------------|-----------|-------------|-----------|------------------------------|---------------------|
@@ -70,6 +85,25 @@ The following table summarizes the averages:
 | 220 (1M)                    | xz        | -6          | 2:41.48   | 84484                        | 32.6                |
 | 220 (1M)                    | gzip      | -6          | 0:08.37   | 2164                         | 42.4                |
 
+# Strategy to choose the optimal archive
+
+If there are memory constraints, then the archivers have to be considered in the following order:
+
+```shell
+brotli
+gzip
+```
+
+Many advanced archivers have a very big memory footprint, not always configurable via flags.
+
+If there are no memory constraints, or they are relaxed, then the archivers have to be considered in the following order:
+
+```shell
+xz
+brotli
+zstd
+gzip
+```
 
 # References
 

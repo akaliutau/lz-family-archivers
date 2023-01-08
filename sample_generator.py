@@ -32,6 +32,20 @@ class RandomGenerators:
         return rec.format_map(values)
 
 
+class LoglineProducer:
+    TEMPLATE = '{timestamp} temperature: {temperature}'
+
+    def __init__(self, log_type: str):
+        self.log_type = log_type
+        if log_type == 'JSON':
+            self.provider = lambda l: json.dumps(l)
+        if log_type == 'TXT':
+            self.provider = lambda l: self.TEMPLATE.format_map(l)
+
+    def to_string(self, rec: dict) -> str:
+        return self.provider(rec)
+
+
 def iso_time(t: datetime) -> str:
     return t.isoformat('T', 'milliseconds') + 'Z'
 
@@ -53,6 +67,7 @@ if __name__ == '__main__':
     parser.add_argument('-o', '--out', help='output file with data', required=True)
     parser.add_argument('-s', '--schema', help='path to schema', required=True)
     parser.add_argument('-l', '--lines', help='number of lines', default=1000, required=False)
+    parser.add_argument('-t', '--type', help='the type of log', default='JSON', choices=['JSON', 'TXT'], required=False)
 
     args = vars(parser.parse_args())
 
@@ -66,7 +81,8 @@ if __name__ == '__main__':
         enumerations=enumerators,
         schema=parsed_schema
     )
-    entropy_rec = EntropyRecorder()
+    entropy_recorder = EntropyRecorder()
+    logline_producer = LoglineProducer(args.get('type'))
 
     t = datetime.datetime.now()
     step_ms = 73
@@ -77,6 +93,7 @@ if __name__ == '__main__':
             r['timestamp'] = iso_time(t)
             r = generators.set_random_values_in_json_line(rec=r, fields=json_fields)
             t = t + datetime.timedelta(milliseconds=step_ms)
-            out.write(entropy_rec.add_sample(json.dumps(r)) + '\n')
+            line = logline_producer.to_string(r)
+            out.write(entropy_recorder.add_sample(line) + '\n')
 
-    print('entropy %s' % entropy_rec.entropy_shannon())
+    print('entropy %s' % entropy_recorder.entropy_shannon())
