@@ -1,0 +1,32 @@
+[
+  {
+    "mode": "REQUIRED",
+    "name": "timestamp",
+    "type": "TIMESTAMP"
+  },
+  {
+    "name": "temperature",
+    "type": "FLOAT64"
+  },
+  {
+    "name": "rad_direct_horizontal",
+    "type": "FLOAT64"
+  },
+  {
+    "name": "rad_diffuse_horizontal",
+    "type": "FLOAT64"
+  },
+  {
+    "name": "country",
+    "type": "ENUM"
+  },
+  {
+    "name": "type",
+    "type": "ENUM"
+  },
+  {
+    "name": "hashcode",
+    "type": "INTEGER"
+  }
+]
+
