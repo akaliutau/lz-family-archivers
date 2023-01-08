@@ -122,9 +122,10 @@ gzip
 ## brotli
 
 [6] https://github.com/google/brotli
-[7] https://github.com/nixxcode/jvm-brotli (port)
-[8] https://github.com/hyperxpro/Brotli4j (java support via JNI)
 
+[7] https://github.com/nixxcode/jvm-brotli (port)
+
+[8] https://github.com/hyperxpro/Brotli4j (java support via JNI)
 
 ## full list + including experimental archivers (less supported/academic projects)
 
