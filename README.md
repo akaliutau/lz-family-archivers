@@ -127,13 +127,17 @@ gzip
 
 [8] https://github.com/hyperxpro/Brotli4j (java support via JNI)
 
+## xz
+
+[9] https://tukaani.org/xz/java.html (port)
+
 ## full list + including experimental archivers (less supported/academic projects)
 
-[9] http://mattmahoney.net/dc/text.html
+[10] http://mattmahoney.net/dc/text.html
 
 ## Misc
 
-[10] https://github.com/vkrasnov/dictator (generating custom dictionaries)
+[11] https://github.com/vkrasnov/dictator (generating custom dictionaries)
 
 
 
