@@ -43,7 +43,7 @@ brotli installation
 sudo apt install brotli
 ```
 
-`xz` is included into most linux distributives by default
+`xz` is included into most linux distributive by default
 
 # Testing methodology
 
