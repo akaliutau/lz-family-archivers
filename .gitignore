@@ -112,5 +112,10 @@ venv.bak/
 /output/*.tmp
 /output/*.parquet
 
+*.gz
+*.zst
+*.xz
+*.br
+
 dev_notes.txt
 
